@@ -1,0 +1,20 @@
+{
+  "name": "express-app-template",
+  "version": "1.0.0",
+  "description": "- [ ] Git setup\r - [ ] Node version manager setup\r - [ ] Node.js project setup\r - [ ] TypeScript setup\r - [ ] Prettier setup\r - [ ] ESLint setup\r - [ ] Git hooks setup\r - [ ] Application config setup\r - [ ] Express.js app setup\r - [ ] Logger setup\r - [ ] Error handling setup\r - [ ] Tests setup\r - [ ] Create template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gautam-629/express-app-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gautam-629/express-app-template/issues"
+  },
+  "homepage": "https://github.com/gautam-629/express-app-template#readme"
+}
