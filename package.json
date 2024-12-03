@@ -5,6 +5,8 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
+    "format:fix": "npx prettier . --write",
+    "format:check": "npx prettier . --check",
     "dev": "tsx watch src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +23,7 @@
   "homepage": "https://github.com/gautam-629/express-app-template#readme",
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "prettier": "3.4.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
