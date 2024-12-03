@@ -1,9 +1,11 @@
 {
   "name": "express-app-template",
   "version": "1.0.0",
-  "description": "- [ ] Git setup\r - [ ] Node version manager setup\r - [ ] Node.js project setup\r - [ ] TypeScript setup\r - [ ] Prettier setup\r - [ ] ESLint setup\r - [ ] Git hooks setup\r - [ ] Application config setup\r - [ ] Express.js app setup\r - [ ] Logger setup\r - [ ] Error handling setup\r - [ ] Tests setup\r - [ ] Create template",
-  "main": "index.js",
+  "description": "",
   "scripts": {
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "dev": "tsx watch src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/gautam-629/express-app-template/issues"
   },
-  "homepage": "https://github.com/gautam-629/express-app-template#readme"
+  "homepage": "https://github.com/gautam-629/express-app-template#readme",
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
 }
