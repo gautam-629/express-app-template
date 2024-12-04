@@ -1079,3 +1079,114 @@ export default tseslint.config(
 
 - [Official TypeScript ESLint Documentation](https://typescript-eslint.io/)
 - [ESLint Rules Reference](https://eslint.org/docs/rules/)
+
+# Husky and Lint-Staged: Code Quality Automation
+
+## 🔍 What are Husky and Lint-Staged?
+
+### Husky: Git Hooks Made Easy
+
+**Husky** is a powerful tool that simplifies the creation and management of Git
+hooks. Git hooks are scripts that run automatically at specific points in the
+Git workflow, such as before committing, pushing, or merging code.
+
+#### Key Features of Husky:
+
+- Easily configure Git hooks without manual script creation
+- Automate code quality checks
+- Enforce team coding standards
+- Prevent low-quality code from being committed
+
+### Lint-Staged: Targeted Linting for Staged Files
+
+**Lint-Staged** is a tool that runs linters and formatters on files that are
+staged in Git. Instead of checking entire project files, it focuses only on the
+files that have been modified and staged for commit.
+
+#### Key Features of Lint-Staged:
+
+- Run linters only on changed (staged) files
+- Improve performance by checking only modified code
+- Automatically fix formatting and style issues
+- Integrate seamlessly with various linters (ESLint, Prettier, etc.)
+
+## 🤝 How Husky and Lint-Staged Work Together
+
+When combined, Husky and lint-staged create a powerful workflow:
+
+1. A developer stages files for commit
+2. Husky triggers the pre-commit hook
+3. Lint-staged runs specified linters and formatters on staged files
+4. If any issues are found, the commit is prevented
+5. Developers must fix issues before successfully committing
+
+## 📌 Practical Example
+
+```bash
+# Typical workflow
+git add .             # Stage changes
+git commit -m "Update" # Triggers Husky and lint-staged
+```
+
+## 🛠 Why Use Husky and Lint-Staged?
+
+### Benefits
+
+- **Consistent Code Quality**: Enforce coding standards automatically
+- **Early Error Detection**: Catch issues before code is committed
+- **Time-Saving**: Automatic formatting and linting
+- **Team Collaboration**: Ensure uniform code style across the team
+
+## Prerequisites
+
+- Node.js (v14 or later)
+- npm (v6 or later)
+- Git
+
+## 📦 Installation
+
+```bash
+# Install Husky and lint-staged
+npm install --save-dev husky lint-staged
+
+# Initialize Husky
+npx husky init
+```
+
+## 🔧 Basic Configuration
+
+### Package.json Setup
+
+```json
+{
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "eslint"],
+    "*.{json,md}": ["prettier --write"]
+  }
+}
+```
+
+### Husky Pre-Commit Hook
+
+Create `.husky/pre-commit`:
+
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx lint-staged
+```
+
+## 🚀 Detailed Usage Guide (Continues in previous README content...)
+
+```
+
+Would you like me to continue with the rest of the content from the previous README, or would you prefer a more focused introduction?
+
+The updated version now provides a clear, comprehensive explanation of what Husky and lint-staged are, how they work, and why they're valuable for developers and teams. I've added context about their purpose, benefits, and a practical example of their workflow.
+```
