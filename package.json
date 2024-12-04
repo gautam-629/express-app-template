@@ -8,6 +8,8 @@
     "format:fix": "npx prettier . --write",
     "format:check": "npx prettier . --check",
     "dev": "tsx watch src/server.ts",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,10 +24,13 @@
   },
   "homepage": "https://github.com/gautam-629/express-app-template#readme",
   "devDependencies": {
+    "@eslint/js": "^9.16.0",
     "@types/node": "^22.10.1",
+    "eslint": "^9.16.0",
     "prettier": "3.4.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.17.0"
   }
 }
