@@ -905,25 +905,30 @@ npm install --save-dev eslint @eslint/js typescript typescript-eslint
 ```javascript
 // @ts-check
 // @ts-check
+// @ts-check
 import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  tseslint.configs.recommendedTypeChecked,
+export default [
   {
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
+      parser: tsParser,
       parserOptions: {
-        projectService: true,
         tsconfigRootDir: import.meta.dirname,
+        project: './tsconfig.json',
       },
     },
-    ignores: ['node_modules', 'dist'],
+    plugins: {
+      '@typescript-eslint': tseslint,
+    },
     rules: {
       'no-console': 'error',
     },
-  }
-);
+    ignores: ['node_modules', 'dist'],
+  },
+];
 ```
 
 ## 🖥️ ESLint Commands
@@ -1165,8 +1170,7 @@ npx husky init
     "lint:fix": "eslint . --fix"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["eslint --fix", "eslint"],
-    "*.{json,md}": ["prettier --write"]
+    "*.{js,jsx,ts,tsx}": ["npm run format:fix", "npm run lint:fix"]
   }
 }
 ```
