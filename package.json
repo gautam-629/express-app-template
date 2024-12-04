@@ -37,6 +37,9 @@
     "typescript-eslint": "^8.17.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["npm run format:fix", "npm run lint:fix"]
+    "*.{js,jsx,ts,tsx}": [
+      "npm run format:fix",
+      "npm run lint:fix"
+    ]
   }
 }
