@@ -1,6 +1,15 @@
+import app from './app';
 import { Config } from './config';
 
-function runServer(): string {
-  return 'ServerRunning at port 90';
-}
-runServer();
+const startServer = () => {
+  try {
+    app.listen(Config.PORT, () => {
+      // eslint-disable-next-line no-console
+      console.log(`Listening at port ${Config.PORT}`);
+    });
+  } catch (error) {
+    process.exit(1);
+  }
+};
+
+startServer();

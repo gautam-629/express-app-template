@@ -924,7 +924,7 @@ export default [
       '@typescript-eslint': tseslint,
     },
     rules: {
-      'no-console': 'error',
+      'no-console': 'warn',
     },
     ignores: ['node_modules', 'dist'],
   },

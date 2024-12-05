@@ -26,6 +26,7 @@
   "homepage": "https://github.com/gautam-629/express-app-template#readme",
   "devDependencies": {
     "@eslint/js": "^9.16.0",
+    "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
     "eslint": "^9.16.0",
     "husky": "^9.1.7",
@@ -43,6 +44,7 @@
     ]
   },
   "dependencies": {
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1"
   }
 }
