@@ -7,14 +7,75 @@
 - [ ] Prettier setup
 - [ ] ESLint setup
 - [ ] Git hooks setup
-- [ ] Application config setup
-- [ ] Express.js app setup
 - [ ] Logger setup
-- [ ] Error handling setup
 - [ ] Tests setup
-- [ ] Create template
 
 ---
+
+# Project Setup Guide - Table of Contents
+
+## Version Control and Git
+
+- [Git and Version Control Guide](#git-and-version-control-guide)
+  - [Advantages of Git](#advantages-of-git)
+  - [Branch Naming Conventions](#branch-naming-conventions)
+  - [.gitignore File](#the-gitignore-file)
+  - [Basic Git Commands](#basic-git-commands)
+
+## Node Version Management
+
+- [NVM (Node Version Manager) Guide](#nvm-node-version-manager-guide)
+  - [What is NVM?](#what-is-nvm)
+  - [Installation](#installation)
+  - [Post-Installation Setup](#post-installation-setup)
+  - [Basic NVM Commands](#basic-nvm-commands)
+
+## TypeScript Setup
+
+- [TypeScript Setup Guide for Node.js Projects](#typescript-setup-guide-for-nodejs-projects)
+  - [Prerequisites](#prerequisites)
+  - [Step-by-Step TypeScript Project Setup](#step-by-step-typescript-project-setup)
+  - [Common Dependencies](#common-dependencies)
+  - [Best Practices](#best-practices)
+
+## Code Formatting
+
+- [Prettier: Code Formatting Simplified](#prettier-code-formatting-simplified)
+  - [What is Prettier?](#what-is-prettier)
+  - [Installation](#package-managers-installation)
+  - [Configuration Files](#configuration-files)
+  - [Running Prettier](#running-prettier)
+
+## Linting
+
+- [TypeScript ESLint: Comprehensive Guide](#typescript-eslint-comprehensive-guide)
+  - [Introduction to TypeScript ESLint](#introduction-to-typescript-eslint)
+  - [Installation and Setup](#installation-and-setup)
+  - [ESLint Commands](#eslint-commands)
+  - [Best Practices and Recommended Rules](#best-practices-and-recommended-rules)
+
+## Git Hooks and Code Quality
+
+- [Husky and Lint-Staged: Code Quality Automation](#husky-and-lint-staged-code-quality-automation)
+  - [What are Husky and Lint-Staged?](#what-are-husky-and-lint-staged)
+  - [How Husky and Lint-Staged Work Together](#how-husky-and-lint-staged-work-together)
+  - [Installation](#installation-1)
+  - [Basic Configuration](#basic-configuration)
+
+## Logging
+
+- [Logger Configuration](#logger-configuration)
+  - [Logger Setup](#logger-setup)
+  - [Example Usage](#example-usage)
+  - [Detailed Configuration](#config)
+
+## Additional Resources
+
+- [Git Documentation](https://git-scm.com/doc)
+- [NVM GitHub Repository](https://github.com/nvm-sh/nvm)
+- [TypeScript Official Docs](https://www.typescriptlang.org/docs/)
+- [Prettier Documentation](https://prettier.io/docs/en/)
+- [ESLint Rules Reference](https://eslint.org/docs/rules/)
 
 # Git and Version Control Guide
 
@@ -179,6 +240,69 @@ To generate a `.gitignore` file:
 4. Choose the appropriate template for your project
 
 ## Basic Git Commands
+
+### Git Command Cheat Sheet
+
+#### 1. git add: Stages Changes to be Committed
+
+| Command          | Example              | Description                                  |
+| ---------------- | -------------------- | -------------------------------------------- |
+| `git add <file>` | `git add index.html` | Stages the file `index.html`.                |
+| `git add .`      | `git add .`          | Stages all changes in the current directory. |
+| `git add -p`     | `git add -p`         | Interactively stage parts of a file.         |
+
+#### 2. git commit: Saves Staged Changes to the Repository
+
+| Command                   | Example                                              | Description                                                |
+| ------------------------- | ---------------------------------------------------- | ---------------------------------------------------------- |
+| `git commit -m "message"` | `git commit -m "Add login feature"`                  | Saves staged changes with the message "Add login feature". |
+| `git commit --amend`      | `git commit --amend -m "Fix typo in commit message"` | Edits the last commit, including its message.              |
+
+#### 3. git diff: Displays Changes Between Various Git States
+
+| Command                | Example                | Description                                                         |
+| ---------------------- | ---------------------- | ------------------------------------------------------------------- |
+| `git diff`             | `git diff`             | Shows unstaged changes in the working directory.                    |
+| `git diff --staged`    | `git diff --staged`    | Shows staged changes compared to the last commit.                   |
+| `git diff HEAD~1 HEAD` | `git diff HEAD~1 HEAD` | Compares changes between the previous commit and the latest commit. |
+
+#### 4. git stash: Temporarily Saves Changes in the Working Directory
+
+| Command                    | Example                          | Description                                        |
+| -------------------------- | -------------------------------- | -------------------------------------------------- |
+| `git stash`                | `git stash`                      | Stashes all unstaged and staged changes.           |
+| `git stash save "message"` | `git stash save "WIP on navbar"` | Saves changes with the message "WIP on navbar".    |
+| `git stash list`           | `git stash list`                 | Lists all saved stashes.                           |
+| `git stash apply`          | `git stash apply`                | Applies the most recent stash without removing it. |
+| `git stash pop`            | `git stash pop`                  | Applies and removes the most recent stash.         |
+| `git stash drop`           | `git stash drop stash@{0}`       | Deletes a specific stash.                          |
+
+#### 5. git restore: Manages Changes in the Working Directory or Staging Area
+
+| Command                                | Example                                  | Description                                            |
+| -------------------------------------- | ---------------------------------------- | ------------------------------------------------------ |
+| `git restore <file>`                   | `git restore index.html`                 | Discards unstaged changes in `index.html`.             |
+| `git restore --staged <file>`          | `git restore --staged index.html`        | Unstages `index.html` but keeps changes.               |
+| `git restore --source=<commit> <file>` | `git restore --source=abc123 index.html` | Restores `index.html` to its state in commit `abc123`. |
+| `git restore .`                        | `git restore .`                          | Discards all unstaged changes.                         |
+
+#### 6. git reset: Moves Commits, Unstages Files, or Discards Changes
+
+| Command                    | Example                    | Description                                                                           |
+| -------------------------- | -------------------------- | ------------------------------------------------------------------------------------- |
+| `git reset --soft HEAD~1`  | `git reset --soft HEAD~1`  | Removes the last commit but keeps changes staged.                                     |
+| `git reset --mixed HEAD~1` | `git reset --mixed HEAD~1` | Removes the last commit and unstages changes.                                         |
+| `git reset --hard HEAD~1`  | `git reset --hard HEAD~1`  | Removes the last commit and discards changes.                                         |
+| `git reset <file>`         | `git reset index.html`     | Unstages `index.html` but keeps changes.                                              |
+| `git reset --hard`         | `git reset --hard`         | Resets the working directory and staging area to the last commit, discarding changes. |
+
+#### 7. git merge and git merge --abort: Combines Branches and Manages Merge Conflicts
+
+| Command              | Example                             | Description                                                   |
+| -------------------- | ----------------------------------- | ------------------------------------------------------------- |
+| `git merge <branch>` | `git merge feature-branch`          | Merges `feature-branch` into the current branch.              |
+| `git merge --abort`  | `git merge --abort`                 | Cancels a merge and restores the pre-merge state.             |
+| `git merge --squash` | `git merge --squash feature-branch` | Prepares a merge as a single commit (manual commit required). |
 
 ### Initializing a Repository
 
