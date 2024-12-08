@@ -1416,3 +1416,428 @@ const logger = winston.createLogger({
 // Export the logger instance for use throughout the application
 export default logger;
 ```
+
+# ts-jest: TypeScript Testing with Jest
+
+## Introduction
+
+ts-jest is a TypeScript preprocessor for Jest that allows you to use Jest to
+test projects written in TypeScript. It provides full TypeScript support,
+enabling seamless testing of TypeScript projects with minimal configuration.
+
+## Installation
+
+You can install ts-jest using your preferred package manager:
+
+### npm
+
+```bash
+npm install --save-dev jest @types/jest ts-jest typescript
+```
+
+### Yarn
+
+```bash
+yarn add --dev jest @types/jest ts-jest typescript
+```
+
+### pnpm
+
+```bash
+pnpm install --save-dev jest @types/jest ts-jest typescript
+```
+
+## Project Initialization
+
+### 1. Create a New Project
+
+```bash
+# Create project directory
+mkdir my-typescript-project
+cd my-typescript-project
+
+# Initialize npm project
+npm init -y
+```
+
+### 2. Install Dependencies
+
+```bash
+# Install TypeScript, Jest, and ts-jest
+npm install --save-dev typescript jest ts-jest @types/jest @jest/globals
+
+# Install TypeScript globally (optional)
+npm install -g typescript
+```
+
+### 3. Initialize TypeScript Configuration
+
+```bash
+# Create tsconfig.json
+npx tsc --init
+```
+
+### 4. Initialize Jest Configuration
+
+```bash
+# Generate Jest config
+npx ts-jest config:init
+```
+
+## Configuration
+
+Create a `jest.config.js` or `jest.config.ts` file in your project root:
+
+```typescript
+import type { Config } from '@jest/types';
+
+const config: Config.InitialOptions = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  // Additional configuration options
+};
+
+export default config;
+```
+
+## Configuring package.json
+
+Add test scripts to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  }
+}
+```
+
+## Running Tests
+
+### Run All Tests
+
+```bash
+npm test
+```
+
+### Run Specific Test Files
+
+```bash
+npm test -- path/to/specific/test.ts
+```
+
+### Watch Mode (Rerun on Changes)
+
+```bash
+npm run test:watch
+```
+
+### Generate Coverage Report
+
+```bash
+npm run test:coverage
+```
+
+## Basic Example
+
+### sum.ts
+
+```typescript
+export function sum(a: number, b: number): number {
+  return a + b;
+}
+```
+
+### sum.test.ts
+
+```typescript
+import { describe, expect, test } from '@jest/globals';
+import { sum } from './sum';
+
+describe('sum module', () => {
+  test('adds 1 + 2 to equal 3', () => {
+    expect(sum(1, 2)).toBe(3);
+  });
+});
+```
+
+## Jest Matchers Reference
+
+### Object Matchers
+
+```typescript
+test('object matching', () => {
+  const user = {
+    name: 'John',
+    age: 30,
+    address: { city: 'New York' },
+  };
+
+  // Check if object has specific property
+  expect(user).toHaveProperty('name');
+  expect(user).toHaveProperty('address.city', 'New York');
+
+  // Check nested property value
+  expect(user).toHaveProperty(['address', 'city'], 'New York');
+});
+```
+
+### Array Matchers
+
+```typescript
+test('array matchers', () => {
+  const fruits = ['apple', 'banana', 'orange'];
+
+  // Check array length
+  expect(fruits).toHaveLength(3);
+
+  // Array contains specific item
+  expect(fruits).toContain('banana');
+
+  // Array does not contain item
+  expect(fruits).not.toContain('grape');
+});
+```
+
+## Advanced Usage
+
+### Data-Driven Testing
+
+Use `describe.each` or `test.each` for parameterized tests:
+
+```typescript
+describe.each([
+  [1, 2, 3],
+  [4, 5, 9],
+])('sum(%i, %i)', (a, b, expected) => {
+  test(`returns ${expected}`, () => {
+    expect(sum(a, b)).toBe(expected);
+  });
+});
+```
+
+### Mock Functions
+
+Jest provides powerful mocking capabilities for testing:
+
+```typescript
+const mockFn = jest.fn();
+mockFn.mockReturnValue(42);
+```
+
+### Additional Matchers Examples
+
+#### Number and Comparison Matchers
+
+```typescript
+test('number matchers', () => {
+  const value = 42;
+
+  // Numeric comparisons
+  expect(value).toBeGreaterThan(40);
+  expect(value).toBeLessThan(50);
+  expect(value).toBeGreaterThanOrEqual(42);
+  expect(value).toBeLessThanOrEqual(42);
+});
+```
+
+#### String Matchers
+
+```typescript
+test('string matchers', () => {
+  const str = 'Hello, TypeScript!';
+
+  // String matching
+  expect(str).toMatch(/TypeScript/);
+  expect(str).toContain('Hello');
+  expect(str).not.toContain('JavaScript');
+});
+```
+
+## Additional Tips
+
+### Global Types
+
+Instead of importing from `@jest/globals`, you can install `@types/jest`:
+
+```bash
+npm install --save-dev @types/jest
+```
+
+### Important Notes
+
+- Try to match versions of Jest and `@types/jest` as closely as possible
+- The `@types/jest` is a third-party library maintained at DefinitelyTyped
+- Latest Jest features might not be immediately covered in type definitions
+
+## Best Practices
+
+- Keep tests small and focused
+- Use descriptive test names
+- Test both positive and negative scenarios
+- Utilize setup and teardown methods
+- Aim for high test coverage
+
+## Common Jest Testing Terms
+
+- `describe`: Group related tests
+- `it`/`test`: Individual test case
+- `expect`: Make assertions
+- `toBe()`: Exact equality
+- `toEqual()`: Deep equality
+- `not`: Negation of matchers
+- `toBeNull()`: Check for null
+- `toBeTruthy()`/`toBeFalsy()`: Boolean checks
+
+# ts-jest: TypeScript Testing with Jest
+
+(... previous content remains the same ...)
+
+## API Testing with Supertest
+
+### Installation
+
+Install Supertest and Express (if you're testing an Express app):
+
+```bash
+npm install --save-dev supertest @types/supertest express @types/express
+```
+
+### Basic API Test Example
+
+#### app.ts
+
+```typescript
+import express, { Request, Response } from 'express';
+
+const app = express();
+app.use(express.json());
+
+app.get('/api/users', (req: Request, res: Response) => {
+  res.json([
+    { id: 1, name: 'John Doe' },
+    { id: 2, name: 'Jane Smith' },
+  ]);
+});
+
+app.post('/api/users', (req: Request, res: Response) => {
+  const newUser = {
+    id: Date.now(),
+    name: req.body.name,
+  };
+  res.status(201).json(newUser);
+});
+
+export default app;
+```
+
+#### app.test.ts
+
+```typescript
+import request from 'supertest';
+import app from './app';
+
+describe('User API', () => {
+  // Test GET endpoint
+  test('GET /api/users returns list of users', async () => {
+    const response = await request(app)
+      .get('/api/users')
+      .expect('Content-Type', /json/)
+      .expect(200);
+
+    expect(response.body).toHaveLength(2);
+    expect(response.body[0]).toHaveProperty('name', 'John Doe');
+  });
+
+  // Test POST endpoint
+  test('POST /api/users creates a new user', async () => {
+    const response = await request(app)
+      .post('/api/users')
+      .send({ name: 'Alice Johnson' })
+      .expect('Content-Type', /json/)
+      .expect(201);
+
+    expect(response.body).toHaveProperty('name', 'Alice Johnson');
+    expect(response.body).toHaveProperty('id');
+  });
+
+  // Test error handling
+  test('POST /api/users with invalid data returns error', async () => {
+    await request(app)
+      .post('/api/users')
+      .send({}) // Empty body
+      .expect(400);
+  });
+});
+```
+
+### Advanced Supertest Techniques
+
+#### Handling Authentication
+
+```typescript
+test('Authenticated route', async () => {
+  const token = 'your-auth-token';
+
+  await request(app)
+    .get('/api/protected-route')
+    .set('Authorization', `Bearer ${token}`)
+    .expect(200);
+});
+```
+
+#### Checking Response Headers
+
+```typescript
+test('Response headers', async () => {
+  await request(app)
+    .get('/api/users')
+    .expect('Content-Type', /json/)
+    .expect('Cache-Control', 'no-cache')
+    .expect(200);
+});
+```
+
+### Common Supertest Methods
+
+- `.get()`: Send GET request
+- `.post()`: Send POST request
+- `.put()`: Send PUT request
+- `.delete()`: Send DELETE request
+- `.send()`: Send request body
+- `.set()`: Set request headers
+- `.expect()`: Assert response status, headers, or body
+
+### Best Practices for API Testing
+
+- Test both successful and error scenarios
+- Validate response status codes
+- Check response structure and content
+- Test input validation
+- Verify authentication and authorization
+- Use meaningful test descriptions
+
+### Configuration Tips
+
+Ensure your `jest.config.ts` supports async testing:
+
+```typescript
+import type { Config } from '@jest/types';
+
+const config: Config.InitialOptions = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  // Increase timeout for slower API tests
+  testTimeout: 10000,
+};
+
+export default config;
+```
+
+## References
+
+- [Jest Official Documentation](https://jestjs.io/)
+- [ts-jest GitHub Repository](https://github.com/kulshekhar/ts-jest)
+- [TypeScript Official Site](https://www.typescriptlang.org/)
