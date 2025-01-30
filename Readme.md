@@ -1693,8 +1693,6 @@ npm install --save-dev @types/jest
 
 # ts-jest: TypeScript Testing with Jest
 
-(... previous content remains the same ...)
-
 ## API Testing with Supertest
 
 ### Installation
